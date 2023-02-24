@@ -1,17 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const todoRoute = require("./controller/todo");
-const userRoute = require("./controller/user");
+const app = express();
+
 const categoryRoute = require("./controller/categories");
 const courseRoute = require("./controller/courses");
-const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1/todo", todoRoute);
-app.use("/api/v1/users", userRoute);
 app.use("/api/v1/categories", categoryRoute);
 app.use("/api/v1/courses", courseRoute);
 

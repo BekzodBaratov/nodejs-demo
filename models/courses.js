@@ -4,11 +4,11 @@ const Joi = require("joi");
 
 const schema = new mongoose.Schema(
   {
-    title: { type: String, required: true, maxLength: 255 },
+    title: { type: String, required: true, maxLength: 255, trim: true },
     tags: [String],
     category: { type: mongoose.Schema.Types.ObjectId, ref: "categories", required: true },
     trainer: { type: String, required: true, maxLength: 255 },
-    status: { type: String, enum: ["active", "not active"], default: "active" },
+    status: { type: String, enum: ["Active", "Inactive"], required: true },
   },
   { collection: "courses" }
 );

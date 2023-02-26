@@ -1,5 +1,6 @@
 const express = require("express");
 const { Enrollments, validate } = require("../models/enrollments");
+const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -26,7 +27,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -38,7 +39,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const id = req.params.id;
   try {
     const enrollments = await Enrollments.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
@@ -49,7 +50,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const id = req.params.id;
   try {
     const enrollments = await Enrollments.findByIdAndRemove(id);

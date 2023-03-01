@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
     category: { type: mongoose.Schema.Types.ObjectId, ref: "categories", required: true },
     trainer: { type: String, required: true, maxLength: 255 },
     status: { type: String, enum: ["Active", "Inactive"], required: true },
+    fee: { type: Number, default: 0 },
   },
   { collection: "courses" }
 );
@@ -22,6 +23,7 @@ function validate(courses) {
     category: Joi.string().required(),
     trainer: Joi.string().required().max(255),
     status: Joi.string(),
+    fee: Joi.number(),
   });
 
   return schema.validate(courses);

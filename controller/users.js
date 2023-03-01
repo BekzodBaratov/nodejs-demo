@@ -18,6 +18,7 @@ router.get("/me", auth, async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).json({ success: false, message: error.details[0].message });
+
   const passwordError = validatePassword(req.body.password);
   if (passwordError.error) return res.status(400).json({ success: false, message: passwordError });
 

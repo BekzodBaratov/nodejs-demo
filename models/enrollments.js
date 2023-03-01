@@ -5,9 +5,7 @@ const { Customers } = require("./customers");
 
 const schema = new mongoose.Schema({
   customer: {
-    type: new mongoose.Schema({
-      name: { type: String, required: true, maxLength: 255, trim: true },
-    }),
+    type: new mongoose.Schema({ name: { type: String, required: true, maxLength: 255, trim: true } }),
     required: true,
   },
   course: {

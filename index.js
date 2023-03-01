@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("express-async-errors");
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
@@ -25,6 +26,9 @@ app.use("/api/v1/customers", customersRoute);
 app.use("/api/v1/enrollments", enrollmentsRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/auth", authRoute);
+app.use(function (err, req, res, next) {
+  res.status(500).send("Serverda kutilmagan xato ro'y berdi");
+});
 
 const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 

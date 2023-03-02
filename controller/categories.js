@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  // new throw Error
   const id = req.params.id;
   const categories = await Categories.findById(id);
   if (!categories) res.status(404).send("categories not found");

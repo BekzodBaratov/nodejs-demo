@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+
 const Joi = require("joi");
 
 const schema = new mongoose.Schema(
   {
-    title: { type: String, required: true, maxLength: 255 },
+    title: { type: String, required: true, maxLength: 255, trim: true },
     tags: [String],
     category: { type: mongoose.Schema.Types.ObjectId, ref: "categories", required: true },
     trainer: { type: String, required: true, maxLength: 255 },
-    status: { type: String, enum: ["active", "not active"], default: "active" },
+    status: { type: String, enum: ["Active", "Inactive"], required: true },
+    fee: { type: Number, default: 0 },
   },
   { collection: "courses" }
 );
@@ -21,6 +23,7 @@ function validate(courses) {
     category: Joi.string().required(),
     trainer: Joi.string().required().max(255),
     status: Joi.string(),
+    fee: Joi.number(),
   });
 
   return schema.validate(courses);
